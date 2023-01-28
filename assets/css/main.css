@@ -1,7 +1,3 @@
-:root {
-	--smaller: .75;
-}
-
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -23,61 +19,4 @@ body {
 main {
 	margin: 0 auto;
 	text-align: center;
-}
-
-article.countdown,
-article.header-countdown {
-	display: flex;
-	justify-content: center;
-}
-
-article.header-countdown section:nth-of-type(4),
-article.header-countdown section:nth-of-type(5),
-article.header-countdown section:nth-of-type(6) {
-	display: none;
-}
-
-article.countdown section {
-	display: inline-block;
-	padding: 1rem;
-}
-
-article.countdown section span:first-of-type {
-	display: block;
-}
-
-article.header-countdown section {
-	display: inline-flex;
-	align-items: center;
-	padding: 0.5rem;
-}
-
-article.header-countdown section span:first-of-type {
-	padding-right: 0.5rem;
-	padding-bottom: 0.5rem;
-}
-
-article.countdown section span:first-of-type,
-article.header-countdown section span:first-of-type {
-	font-size: 4.5rem;
-	color: rgb(232, 130, 34);
-}
-
-article.countdown section span:last-of-type,
-article.header-countdown section span:last-of-type {
-	text-transform: uppercase;
-	font-size: 1.5em;
-	color: hsl(0, 0%, 90%);
-}
-
-@media all and (max-width: 768px) {
-	article.countdown section span:first-of-type,
-	article.header-countdown section span:first-of-type {
-		font-size: calc(3.375rem * .75);
-	}
-
-	article.countdown section span:last-of-type,
-	article.header-countdown section span:last-of-type {
-		font-size: calc(1.125rem * .75);
-	}
 }

@@ -1,0 +1,64 @@
+:root {
+	--number-color: hsl(29, 81.1%, 52.2%);
+	--number-size: 4.5rem;
+	--unit-color: hsl(0, 0%, 90%);
+	--unit-size: 1.5em;
+	--header-padding: 0.5rem;
+	--body-padding: 1rem;
+}
+
+.countdown,
+.header-countdown {
+	display: flex;
+	justify-content: center;
+}
+
+.header-countdown :is(
+	section:nth-of-type(4),
+	section:nth-of-type(5),
+	section:nth-of-type(6)
+) {
+	display: none;
+}
+
+.countdown section {
+	display: inline-block;
+	padding: var(--body-padding);
+}
+
+.countdown section span:first-of-type {
+	display: block;
+}
+
+.header-countdown section {
+	display: inline-flex;
+	align-items: center;
+	padding: var(--header-padding);
+}
+
+.header-countdown section span:first-of-type {
+	padding-right: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.countdown section span:first-of-type,
+.header-countdown section span:first-of-type {
+	font-size: var(--number-size);
+	color: var(--number-color);
+}
+
+.countdown section span:last-of-type,
+.header-countdown section span:last-of-type {
+	text-transform: uppercase;
+	font-size: var(--unit-size);
+	color: var(--unit-color);
+}
+
+@media all and (max-width: 768px) {
+	:root {
+		--number-size: 3.375rem;
+		--unit-size: 1.125rem;
+		--header-padding: 0.35rem;
+		--body-padding: 0.6rem;
+	}
+}
