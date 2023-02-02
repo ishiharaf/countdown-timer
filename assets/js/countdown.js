@@ -37,10 +37,10 @@ const convertTimestamp = (timestamp) => {
 }
 
 const setConfig = (config) => {
-	config.years ??= true
-	config.months ??= true
+	config.years ??= false
+	config.months ??= false
 	config.days ??= true
-	config.removeExpired ??= false
+	config.remove ??= false
 	return config
 }
 
@@ -93,10 +93,10 @@ const startCountDown = (timestamp = new Date().getTime() + 864e5, config = {}) =
 				el.innerText = String(timespan.minutes).padStart(2, "0")
 			})
 			document.querySelectorAll(".seconds").forEach(el => {
-				el.innerText = timespan.seconds == 0 ? "60" : String(timespan.seconds).padStart(2, "0")
+				el.innerText = String(timespan.seconds).padStart(2, "0")
 			})
 		} else {
-			if (config.removeExpired) removeElement()
+			if (config.remove) removeElement()
 			clearInterval(interval);
 		}
 	})
