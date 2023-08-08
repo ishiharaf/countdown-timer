@@ -44,7 +44,7 @@ const setConfig = (config) => {
 	return config
 }
 
-const addElement = (config, timespan) => {
+const addElement = (timespan, config) => {
 	const elements = document.querySelectorAll(".countdown, .header-countdown")
 	elements.forEach(countdown => {
 		if (config.years && timespan.years > 0) {
@@ -62,6 +62,54 @@ const addElement = (config, timespan) => {
 	})
 }
 
+const updateElement = (el, time) => {
+	const smallUnit = unit => [
+			"Hours", "Minutes", "Seconds",
+			"Hour", "Minute", "Second"
+		].includes(unit)
+	const unit = el.nextElementSibling
+	const unitName = unit.innerText
+	const isPlural = ["S", "s"].includes(unitName.slice(-1))
+	const isTimeDifferent = el.innerText != time
+	const isSmallUnit = smallUnit(unitName)
+	const isOne = time == 1
+
+	if (isTimeDifferent) {
+		el.innerText = isSmallUnit
+			? String(time).padStart(2, "0")
+			: time
+		if (isOne && isPlural) unit.innerText = unitName.slice(0, -1)
+		if (!isOne && !isPlural) unit.innerText = unitName + "s"
+	}
+}
+
+const updateTime = (timespan, config) => {
+	if (config.years) {
+		document.querySelectorAll(".years").forEach(el => {
+			updateElement(el, timespan.years)
+		})
+	}
+	if (config.months) {
+		document.querySelectorAll(".months").forEach(el => {
+			updateElement(el, timespan.months)
+		})
+	}
+	if (config.days) {
+		document.querySelectorAll(".days").forEach(el => {
+			updateElement(el, timespan.days)
+		})
+	}
+	document.querySelectorAll(".hours").forEach(el => {
+		updateElement(el, timespan.hours)
+	})
+	document.querySelectorAll(".minutes").forEach(el => {
+		updateElement(el, timespan["minutes"])
+	})
+	document.querySelectorAll(".seconds").forEach(el => {
+		updateElement(el, timespan.seconds)
+	})
+}
+
 const removeElement = () => {
 	const elements = document.querySelectorAll(".countdown, .header-countdown")
 	elements.forEach(countdown => {
@@ -72,29 +120,12 @@ const removeElement = () => {
 const startCountDown = (timestamp = new Date().getTime() + 864e5, config = {}) => {
 	timestamp = convertTimestamp(timestamp)
 	config = setConfig(config)
-	addElement(config, new Timespan(timestamp, config))
+	addElement(new Timespan(timestamp, config), config)
 
 	const interval = setInterval(() => {
 		const timespan = new Timespan(timestamp, config)
 		if (timespan.expiration > 0) {
-			if (config.years) {
-				document.querySelectorAll(".years").forEach(el => {el.innerText = timespan.years})
-			}
-			if (config.months) {
-				document.querySelectorAll(".months").forEach(el => {el.innerText = timespan.months})
-			}
-			if (config.days) {
-				document.querySelectorAll(".days").forEach(el => {el.innerText = timespan.days})
-			}
-			document.querySelectorAll(".hours").forEach(el => {
-				el.innerText = String(timespan.hours).padStart(2, "0")
-			})
-			document.querySelectorAll(".minutes").forEach(el => {
-				el.innerText = String(timespan.minutes).padStart(2, "0")
-			})
-			document.querySelectorAll(".seconds").forEach(el => {
-				el.innerText = String(timespan.seconds).padStart(2, "0")
-			})
+			updateTime(timespan, config)
 		} else {
 			if (config.remove) removeElement()
 			clearInterval(interval);

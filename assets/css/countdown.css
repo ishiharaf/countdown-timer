@@ -1,10 +1,14 @@
 :root {
-	--number-color: hsl(29, 81.1%, 52.2%);
+	--accent-color: hsl(338, 100%, 50%);
+	--text-color: hsl(0, 0%, 90%);
 	--number-size: 4.5rem;
-	--unit-color: hsl(0, 0%, 90%);
-	--unit-size: 1.5em;
-	--header-padding: 0.5rem;
-	--body-padding: 1rem;
+	--text-size: 1.5rem;
+	--body-gap: 1rem;
+	--body-text-gap: 0.5rem;
+	--header-number-size: 2rem;
+	--header-text-size: 1rem;
+	--header-gap: 1rem;
+	--header-text-gap: 0.5rem;
 }
 
 .countdown,
@@ -13,52 +17,64 @@
 	justify-content: center;
 }
 
-.header-countdown :is(
-	section:nth-of-type(4),
-	section:nth-of-type(5),
-	section:nth-of-type(6)
-) {
+.countdown {
+	gap: var(--body-gap);
+}
+
+.header-countdown {
+	gap: var(--header-gap);
+}
+
+.countdown section:nth-child(n+4),
+.header-countdown section:nth-child(n+4) {
 	display: none;
 }
 
-.countdown section {
-	display: inline-block;
-	padding: var(--body-padding);
-}
-
-.countdown section span:first-of-type {
-	display: block;
-}
-
+.countdown section,
 .header-countdown section {
 	display: inline-flex;
 	align-items: center;
-	padding: var(--header-padding);
 }
 
-.header-countdown section span:first-of-type {
-	padding-right: 0.5rem;
-	padding-bottom: 0.5rem;
+.countdown section {
+	flex-direction: column;
+	gap: var(--body-text-gap);
+}
+
+.header-countdown section {
+	gap: var(--header-text-gap);
 }
 
 .countdown section span:first-of-type,
 .header-countdown section span:first-of-type {
 	font-size: var(--number-size);
-	color: var(--number-color);
+	color: var(--accent-color);
 }
 
 .countdown section span:last-of-type,
 .header-countdown section span:last-of-type {
 	text-transform: uppercase;
-	font-size: var(--unit-size);
-	color: var(--unit-color);
+	font-size: var(--text-size);
+	color: var(--text-color);
 }
 
-@media all and (max-width: 768px) {
+.header-countdown section span:first-of-type {
+	font-size: var(--header-number-size);
+}
+
+.header-countdown section span:last-of-type {
+	font-size: var(--header-text-size);
+}
+
+@media (max-width: 768px) {
 	:root {
 		--number-size: 3.375rem;
-		--unit-size: 1.125rem;
-		--header-padding: 0.35rem;
-		--body-padding: 0.6rem;
+		--text-size: 1.125rem;
+		--body-gap: 0.7rem;
+		--body-text-gap: 0.4rem;
+		--header-number-size: 1.75rem;
+		--header-text-size: 0.75rem;
+		--header-gap: 0.7rem;
+		--header-text-gap: 0.35rem;
 	}
 }
