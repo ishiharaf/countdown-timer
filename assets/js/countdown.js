@@ -19,7 +19,8 @@ function Timespan(timestamp, config) {
 	this.days = this.expiration < 864e5 || (!config.years && !config.months) ? Math.floor(this.expiration / day)
 		: !config.months ? this.remainingDays
 		: Math.ceil(this.totalDays - (this.years * year + (this.totalMonths / 12 * year)));
-	this.hours = Math.floor((this.expiration % day) / hour)
+	this.totalHours = Math.floor((this.expiration % day) / hour) + (this.remainingDays * 24)
+	this.hours = !config.days ? this.totalHours : Math.floor((this.expiration % day) / hour)
 	this.minutes = Math.floor((this.expiration % hour) / minute)
 	this.seconds = Math.floor((this.expiration % minute) / second)
 }
